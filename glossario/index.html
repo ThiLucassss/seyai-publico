@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossário Técnico SeyAI</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg-alt: #161616;
+    --bg-code: #1c1c1c;
+    --border: #2a2a2a;
+    --text: #e4e4e4;
+    --text-dim: #888;
+    --accent: #d97757;
+    --green: #5bb85b;
+    --yellow: #d4b94e;
+    --red: #d65656;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+  /* Sidebar */
+  aside {
+    background: var(--bg-alt);
+    border-right: 1px solid var(--border);
+    padding: 24px 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  aside h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  aside ol { list-style: none; }
+  aside li { margin: 6px 0; }
+  aside a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    border-left: 2px solid transparent;
+  }
+  aside a:hover { background: var(--bg-code); border-left-color: var(--accent); }
+  aside .meta {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  /* Main */
+  main {
+    padding: 48px 64px;
+    max-width: 980px;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  header p {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 12px 0 12px 24px; }
+  li { margin-bottom: 4px; }
+  /* Levels */
+  .lvl {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+  .lvl-g { background: rgba(91,184,91,0.15); color: var(--green); border: 1px solid var(--green); }
+  .lvl-y { background: rgba(212,185,78,0.15); color: var(--yellow); border: 1px solid var(--yellow); }
+  .lvl-r { background: rgba(214,86,86,0.15); color: var(--red); border: 1px solid var(--red); }
+  /* Code */
+  code {
+    font-family: "SF Mono", Consolas, "Courier New", monospace;
+    background: var(--bg-code);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  pre {
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--text);
+    font-size: 13px;
+  }
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--bg-alt);
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tr:hover td { background: var(--bg-alt); }
+  /* Boxes */
+  .box {
+    border-left: 3px solid var(--accent);
+    background: var(--bg-alt);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 3px 3px 0;
+  }
+  .box.warn { border-left-color: var(--red); }
+  .box.ok { border-left-color: var(--green); }
+  .box-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  /* Glossary */
+  dl { margin: 12px 0; }
+  dt {
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 8px;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 14px;
+  }
+  dd { color: var(--text); margin-left: 0; padding-left: 0; margin-bottom: 4px; }
+  /* Responsive */
+  @media (max-width: 900px) {
+    body { grid-template-columns: 1fr; }
+    aside { position: static; height: auto; }
+    main { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<aside>
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#s0">0 · Como usar</a></li>
+    <li><a href="#s1">1 · Vocabulário</a></li>
+    <li><a href="#s2">2 · Cursor</a></li>
+    <li><a href="#s3">3 · Terminal</a></li>
+    <li><a href="#s4">4 · Git</a></li>
+    <li><a href="#s5">5 · Fluxo SeyAI</a></li>
+    <li><a href="#s6">6 · Nunca faça</a></li>
+    <li><a href="#s7">7 · Resgate</a></li>
+    <li><a href="#s8">8 · Win ↔ Mac</a></li>
+    <li><a href="#s9">9 · Glossário A-Z</a></li>
+  </ol>
+  <div class="meta">
+    Níveis<br>
+    <span class="lvl lvl-g">básico</span>
+    <span class="lvl lvl-y">médio</span>
+    <span class="lvl lvl-r">avançado</span>
+  </div>
+</aside>
+
+<main>
+
+<header>
+  <h1>Glossário Técnico SeyAI</h1>
+  <p>Cursor + Terminal + Git para sócios e novos integrantes do projeto. v1.0 · 2026-04-20</p>
+</header>
+
+<section id="s0">
+  <h2>0 · Como usar este guia</h2>
+  <p>Leia em ordem se está começando do zero. Use como referência (Ctrl+F) depois que dominar o básico.</p>
+  <p>Cada seção tem nível de dificuldade:
+    <span class="lvl lvl-g">básico</span> usa todo dia ·
+    <span class="lvl lvl-y">médio</span> usa toda semana ·
+    <span class="lvl lvl-r">avançado</span> cuidado redobrado.
+  </p>
+</section>
+
+<section id="s1">
+  <h2>1 · Vocabulário fundamental</h2>
+  <p>Entenda esses termos antes de tocar em qualquer comando.</p>
+  <table>
+    <thead><tr><th>Termo</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td><code>repo</code></td><td>O projeto inteiro versionado (uma pasta com histórico do git).</td></tr>
+      <tr><td><code>commit</code></td><td>Uma fotografia do projeto num momento, gravada no histórico.</td></tr>
+      <tr><td><code>branch</code></td><td>Linha paralela de trabalho (você está na <code>thiago</code>, canônica é <code>Bautitz</code>).</td></tr>
+      <tr><td><code>remote</code></td><td>Servidor remoto (GitHub) que guarda cópia do repo.</td></tr>
+      <tr><td><code>origin</code></td><td>Apelido padrão do remoto principal (no SeyAI: <code>MarcosBautitz/seyai</code>).</td></tr>
+      <tr><td><code>HEAD</code></td><td>Ponteiro pra "onde você está" no histórico agora.</td></tr>
+      <tr><td><code>staging</code></td><td>Cesta de arquivos preparados pro próximo commit.</td></tr>
+      <tr><td><code>PR</code></td><td>Pull Request — pedido formal pra mergear sua branch na principal.</td></tr>
+      <tr><td><code>conflict</code></td><td>Quando o git não consegue juntar mudanças sozinho — você resolve manualmente.</td></tr>
+      <tr><td><code>CLI</code></td><td>Command Line Interface — programa que roda na linha de comando.</td></tr>
+      <tr><td><code>terminal</code></td><td>Janela onde você digita comandos (CMD no Windows, Terminal no Mac).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s2">
+  <h2>2 · Cursor — primeiro contato</h2>
+  <p>Cursor é o editor que você usa agora. Baseado no VS Code, com IA nativa. Roda Claude Code dentro do terminal integrado.</p>
+
+  <h3>2.1 Atalhos do dia a dia <span class="lvl lvl-g">básico</span></h3>
+  <p><em>No Mac: troque <code>Ctrl</code> por <code>Cmd</code>.</em></p>
+
+  <h4>Navegar</h4>
+  <ul>
+    <li><code>Ctrl + P</code> — abrir arquivo por nome</li>
+    <li><code>Ctrl + Shift + P</code> — paleta de comandos (faz qualquer coisa do Cursor)</li>
+    <li><code>Ctrl + B</code> — mostrar/esconder barra lateral</li>
+    <li><code>Ctrl + J</code> — mostrar/esconder terminal</li>
+    <li><code>Ctrl + Tab</code> — alternar entre abas abertas</li>
+  </ul>
+
+  <h4>Editar</h4>
+  <ul>
+    <li><code>Ctrl + S</code> — salvar</li>
+    <li><code>Ctrl + D</code> — selecionar próxima ocorrência da palavra (multi-cursor)</li>
+    <li><code>Alt + ↑/↓</code> — mover linha</li>
+    <li><code>Shift + Alt + ↑/↓</code> — duplicar linha</li>
+    <li><code>Ctrl + /</code> — comentar/descomentar</li>
+    <li><code>Ctrl + Z</code> / <code>Ctrl + Y</code> — desfazer / refazer</li>
+  </ul>
+
+  <h4>Buscar</h4>
+  <ul>
+    <li><code>Ctrl + F</code> — buscar no arquivo atual</li>
+    <li><code>Ctrl + H</code> — buscar e substituir</li>
+    <li><code>Ctrl + Shift + F</code> — buscar em todo o projeto</li>
+  </ul>
+
+  <h3>2.2 Trabalhar com IA dentro do Cursor <span class="lvl lvl-g">básico</span></h3>
+  <ul>
+    <li><code>Ctrl + L</code> — abre chat lateral com IA</li>
+    <li><code>Ctrl + K</code> — IA inline (edita código onde o cursor está)</li>
+    <li><code>Ctrl + I</code> — Composer (IA edita múltiplos arquivos)</li>
+    <li><code>Tab</code> — aceitar sugestão de autocomplete</li>
+    <li><code>Esc</code> — rejeitar sugestão</li>
+    <li><code>@</code> no chat — mencionar arquivo, pasta ou código específico</li>
+  </ul>
+  <div class="box ok">
+    <div class="box-label">exemplo</div>
+    Selecione um trecho → <code>Ctrl + K</code> → "transforma em função" → IA edita ali mesmo.
+  </div>
+
+  <h3>2.3 Terminal integrado <span class="lvl lvl-y">médio</span></h3>
+  <p>É onde você roda Claude Code e comandos de git.</p>
+  <ul>
+    <li><code>Ctrl + `</code> — abrir novo terminal</li>
+    <li>Ícone de split — dividir terminal lado a lado</li>
+    <li>Ícone de lixeira — fechar terminal</li>
+    <li><code>cls</code> (Win) / <code>clear</code> (Mac) — limpar tela</li>
+  </ul>
+
+  <h4>Claude Code dentro do Cursor</h4>
+  <ul>
+    <li><code>claude</code> — iniciar sessão</li>
+    <li><code>/login</code> — autenticar</li>
+    <li><code>/effort low|medium|high</code> — ajustar esforço de raciocínio</li>
+    <li><code>/fast</code> — modo rápido (Opus 4.6)</li>
+    <li><code>/clear</code> — limpar contexto da conversa</li>
+    <li><code>/help</code> — ver ajuda</li>
+  </ul>
+  <div class="box ok">
+    <div class="box-label">dica</div>
+    Digite <code>/</code> no Claude Code pra ver os 21 comandos do SeyAI (<code>/thiago</code>, <code>/lima</code>, <code>/shion</code>, <code>/atualizacao</code>, <code>/push</code>, <code>/puxar-bautitz</code> etc).
+  </div>
+
+  <h3>2.4 Configurações importantes <span class="lvl lvl-r">avançado</span></h3>
+  <ul>
+    <li><strong>Privacy Mode ON</strong> (recomendado pro SeyAI): <code>Cursor Settings → Privacy → Privacy Mode: Enabled</code>. Garante que código não é usado pra treinar modelos.</li>
+    <li><code>.cursor/rules/</code> — regras de IA específicas do projeto.</li>
+    <li><code>.vscode/settings.json</code> — configurações do projeto (Cursor é compatível).</li>
+  </ul>
+</section>
+
+<section id="s3">
+  <h2>3 · Terminal — sobreviver na linha de comando</h2>
+  <p>Quando usar: pra rodar git, npm, scripts, ou qualquer coisa que não tem botão.</p>
+
+  <h3>3.1 Navegação <span class="lvl lvl-g">básico</span></h3>
+  <table>
+    <thead><tr><th>Ação</th><th>Windows (CMD)</th><th>Mac/Linux</th></tr></thead>
+    <tbody>
+      <tr><td>Listar arquivos</td><td><code>dir</code></td><td><code>ls</code></td></tr>
+      <tr><td>Listar detalhado (com ocultos)</td><td><code>dir /a</code></td><td><code>ls -la</code></td></tr>
+      <tr><td>Entrar em pasta</td><td><code>cd nome</code></td><td><code>cd nome</code></td></tr>
+      <tr><td>Voltar uma pasta</td><td><code>cd ..</code></td><td><code>cd ..</code></td></tr>
+      <tr><td>Ir pra raiz do usuário</td><td><code>cd %USERPROFILE%</code></td><td><code>cd ~</code></td></tr>
+      <tr><td>Ver onde estou</td><td><code>cd</code></td><td><code>pwd</code></td></tr>
+      <tr><td>Limpar tela</td><td><code>cls</code></td><td><code>clear</code></td></tr>
+    </tbody>
+  </table>
+  <div class="box ok">
+    <div class="box-label">exemplo prático</div>
+    <pre><code>cd C:\Users\Thiago\Documents\seyai
+dir</code></pre>
+  </div>
+
+  <h3>3.2 Manipular arquivos <span class="lvl lvl-g">básico</span></h3>
+  <table>
+    <thead><tr><th>Ação</th><th>Windows</th><th>Mac/Linux</th></tr></thead>
+    <tbody>
+      <tr><td>Criar pasta</td><td><code>mkdir nome</code></td><td><code>mkdir nome</code></td></tr>
+      <tr><td>Criar arquivo vazio</td><td><code>type nul &gt; arq.txt</code></td><td><code>touch arq.txt</code></td></tr>
+      <tr><td>Copiar arquivo</td><td><code>copy a.txt b.txt</code></td><td><code>cp a.txt b.txt</code></td></tr>
+      <tr><td>Mover/renomear</td><td><code>move a.txt b.txt</code></td><td><code>mv a.txt b.txt</code></td></tr>
+      <tr><td>Apagar arquivo</td><td><code>del arq.txt</code></td><td><code>rm arq.txt</code></td></tr>
+      <tr><td>Apagar pasta</td><td><code>rmdir /s nome</code></td><td><code>rm -rf nome</code></td></tr>
+      <tr><td>Ver conteúdo</td><td><code>type arq.txt</code></td><td><code>cat arq.txt</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.3 Buscar coisas <span class="lvl lvl-y">médio</span></h3>
+  <table>
+    <thead><tr><th>Ação</th><th>Windows</th><th>Mac/Linux</th></tr></thead>
+    <tbody>
+      <tr><td>Buscar texto em arquivo</td><td><code>findstr "palavra" arq.txt</code></td><td><code>grep "palavra" arq.txt</code></td></tr>
+      <tr><td>Buscar arquivo por nome</td><td><code>dir /s nome*</code></td><td><code>find . -name "nome*"</code></td></tr>
+      <tr><td>Ver primeiras linhas</td><td><code>more arq.txt</code></td><td><code>head arq.txt</code></td></tr>
+      <tr><td>Ver últimas linhas</td><td>(não nativo)</td><td><code>tail arq.txt</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>3.4 Variáveis e atalhos <span class="lvl lvl-r">avançado</span></h3>
+  <table>
+    <thead><tr><th>Ação</th><th>Windows</th><th>Mac/Linux</th></tr></thead>
+    <tbody>
+      <tr><td>Ver variável de ambiente</td><td><code>echo %PATH%</code></td><td><code>echo $PATH</code></td></tr>
+      <tr><td>Setar variável (sessão)</td><td><code>set X=valor</code></td><td><code>export X=valor</code></td></tr>
+      <tr><td>Histórico de comandos</td><td><code>doskey /history</code></td><td><code>history</code></td></tr>
+      <tr><td>Repetir comando anterior</td><td><code>↑</code></td><td><code>↑</code> ou <code>!!</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s4">
+  <h2>4 · Git — versionar trabalho</h2>
+
+  <h3>4.1 Setup inicial (uma vez na vida) <span class="lvl lvl-g">básico</span></h3>
+  <pre><code>git config --global user.name "Thiago Freitas"
+git config --global user.email "freitas4thiagotlg@gmail.com"</code></pre>
+
+  <h3>4.2 Ciclo do dia a dia <span class="lvl lvl-g">básico</span></h3>
+  <div class="box">
+    <div class="box-label">receita</div>
+    <code>status → add → commit → push</code>. Memorize.
+  </div>
+
+  <h4>Trazer atualizações</h4>
+  <ul>
+    <li><code>git clone &lt;url&gt;</code> — cópia inicial completa (uma vez por projeto)</li>
+    <li><code>git fetch</code> — baixa novidades sem aplicar</li>
+    <li><code>git pull</code> — baixa e aplica na sua branch</li>
+  </ul>
+
+  <h4>Salvar trabalho</h4>
+  <ul>
+    <li><code>git status</code> — vê o estado atual (use SEMPRE antes/depois)</li>
+    <li><code>git diff</code> — vê o que mudou linha por linha</li>
+    <li><code>git add arquivo</code> — marca arquivo pro próximo commit</li>
+    <li><code>git add .</code> — marca tudo da pasta atual</li>
+    <li><code>git commit -m "msg"</code> — grava snapshot local</li>
+  </ul>
+
+  <h4>Enviar pro GitHub</h4>
+  <ul>
+    <li><code>git push</code> — manda commits locais pro remoto</li>
+    <li><code>git push -u origin thiago</code> — manda E vincula sua branch local à remota (1ª vez)</li>
+  </ul>
+
+  <div class="box ok">
+    <div class="box-label">fluxo padrão</div>
+    <pre><code>git status
+git add _seyai_output/thiago/inbox/proposta.md
+git commit -m "feat: PROP-THIAGO-005 nova proposta"
+git push</code></pre>
+  </div>
+
+  <h3>4.3 Branches <span class="lvl lvl-y">médio</span></h3>
+  <p>Branch = linha paralela de trabalho. Você está na <code>thiago</code>; a canônica é <code>Bautitz</code>.</p>
+  <ul>
+    <li><code>git branch</code> — lista branches locais</li>
+    <li><code>git branch -a</code> — lista locais + remotas</li>
+    <li><code>git switch nome</code> — troca pra branch existente</li>
+    <li><code>git switch -c nova</code> — cria branch nova e troca</li>
+    <li><code>git checkout -b nova</code> — mesmo que acima (forma antiga, ainda comum)</li>
+    <li><code>git branch -d nome</code> — apaga branch (segura)</li>
+  </ul>
+  <div class="box ok">
+    <div class="box-label">exemplo real</div>
+    <pre><code>git checkout -b thiago        # cria branch "thiago"
+git push -u origin thiago     # publica no GitHub e vincula</code></pre>
+  </div>
+
+  <h3>4.4 Combinar trabalho <span class="lvl lvl-y">médio</span></h3>
+  <ul>
+    <li><code>git merge Bautitz</code> — traz commits da Bautitz pra branch atual</li>
+    <li><code>git rebase Bautitz</code> — reescreve histórico "por cima" da Bautitz (linear)</li>
+    <li><code>git stash</code> — guarda mudanças em gaveta temporária</li>
+    <li><code>git stash pop</code> — recupera o que tava na gaveta</li>
+  </ul>
+
+  <h3>4.5 Inspecionar histórico <span class="lvl lvl-y">médio</span></h3>
+  <ul>
+    <li><code>git log --oneline -10</code> — últimos 10 commits resumidos</li>
+    <li><code>git log --graph --oneline</code> — histórico visual com branches</li>
+    <li><code>git diff Bautitz..thiago</code> — diferenças entre branches</li>
+    <li><code>git blame arquivo</code> — quem mudou cada linha</li>
+  </ul>
+</section>
+
+<section id="s5">
+  <h2>5 · Fluxo SeyAI (sócio Thiago)</h2>
+  <p>Receita pronta pro dia a dia no SeyAI:</p>
+  <pre><code># 1. Começo do dia: pega o que mudou na canônica
+/puxar-bautitz                    # ou: git pull origin Bautitz
+
+# 2. Trabalha — edita arquivos no workspace _seyai_output/thiago/
+
+# 3. Vê o que mudou
+git status
+git diff
+
+# 4. Salva localmente
+git add _seyai_output/thiago/algo.md
+git commit -m "feat: PROP-THIAGO-006 descrição curta"
+
+# 5. Envia pro GitHub
+/push                             # ou: git push origin thiago</code></pre>
+  <p>Comandos especiais SeyAI: ver <code>_seyai/agents/</code> e <code>.claude/commands/</code> pra lista completa.</p>
+</section>
+
+<section id="s6">
+  <h2>6 · Nunca faça isso</h2>
+  <p>Lista única de armadilhas. Lê uma vez, nunca esquece.</p>
+  <table>
+    <thead><tr><th>Comando</th><th>Por que evitar</th></tr></thead>
+    <tbody>
+      <tr><td><code>rm -rf</code> / <code>rmdir /s</code></td><td>Não vai pra lixeira. Some pra sempre.</td></tr>
+      <tr><td><code>git push --force</code> em <code>Bautitz</code> ou <code>main</code></td><td>Sobrescreve trabalho de Marcos e dos outros.</td></tr>
+      <tr><td><code>git reset --hard HEAD~1</code> sem certeza</td><td>Apaga commits + mudanças locais.</td></tr>
+      <tr><td><code>git checkout .</code></td><td>Descarta TODAS mudanças não commitadas. Sem volta.</td></tr>
+      <tr><td><code>git clean -fd</code></td><td>Apaga arquivos não rastreados. Sem lixeira.</td></tr>
+      <tr><td><code>git branch -D nome</code></td><td>Apaga branch forçado, perde commits não mergeados.</td></tr>
+      <tr><td><code>git add -A</code> em repo grande</td><td>Pode incluir lixo (.env, builds, segredos).</td></tr>
+      <tr><td>Commit com <code>.env</code> ou credenciais</td><td>Vaza segredos pro GitHub. Praticamente impossível remover do histórico.</td></tr>
+      <tr><td>Editar arquivo de outro sócio em <code>_seyai_output/lima/</code></td><td>Viola UNI-056 / UNI-059 / UNI-060.</td></tr>
+    </tbody>
+  </table>
+  <div class="box warn">
+    <div class="box-label">versão segura de force push</div>
+    <code>git push --force-with-lease</code> — aborta se alguém commitou depois de você.
+  </div>
+</section>
+
+<section id="s7">
+  <h2>7 · Resgate de emergência</h2>
+  <table>
+    <thead><tr><th>Situação</th><th>Solução</th></tr></thead>
+    <tbody>
+      <tr><td>Apaguei commit por engano</td><td><code>git reflog</code> → encontra hash → <code>git reset --hard &lt;hash&gt;</code></td></tr>
+      <tr><td>Conflito no merge</td><td>Edita arquivo manualmente → <code>git add</code> → <code>git commit</code></td></tr>
+      <tr><td>Commitei na branch errada</td><td><code>git reset HEAD~1</code> → <code>git switch branch-certa</code> → recommit</td></tr>
+      <tr><td>Quero desfazer último commit mas manter mudanças</td><td><code>git reset --soft HEAD~1</code></td></tr>
+      <tr><td>Cursor travou</td><td><code>Ctrl + Shift + P</code> → "Reload Window"</td></tr>
+      <tr><td>Terminal travou</td><td><code>Ctrl + C</code> (interrompe comando) ou fecha aba</td></tr>
+      <tr><td>Claude Code não responde</td><td><code>Ctrl + C</code> duas vezes → <code>claude</code> de novo</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s8">
+  <h2>8 · Apêndice: equivalências Windows ↔ Mac</h2>
+  <table>
+    <thead><tr><th>Conceito</th><th>Windows</th><th>Mac</th></tr></thead>
+    <tbody>
+      <tr><td>Tecla modificadora padrão</td><td><code>Ctrl</code></td><td><code>Cmd</code> (⌘)</td></tr>
+      <tr><td>Pasta home do usuário</td><td><code>C:\Users\Nome</code></td><td><code>/Users/nome</code> ou <code>~</code></td></tr>
+      <tr><td>Separador de path</td><td><code>\</code> (barra invertida)</td><td><code>/</code> (barra normal)</td></tr>
+      <tr><td>Variável home</td><td><code>%USERPROFILE%</code></td><td><code>$HOME</code> ou <code>~</code></td></tr>
+      <tr><td>Listar arquivos</td><td><code>dir</code></td><td><code>ls</code></td></tr>
+      <tr><td>Limpar tela</td><td><code>cls</code></td><td><code>clear</code></td></tr>
+      <tr><td>Apagar arquivo</td><td><code>del</code></td><td><code>rm</code></td></tr>
+      <tr><td>Mover/renomear</td><td><code>move</code></td><td><code>mv</code></td></tr>
+      <tr><td>Copiar</td><td><code>copy</code></td><td><code>cp</code></td></tr>
+      <tr><td>Ver conteúdo</td><td><code>type</code></td><td><code>cat</code></td></tr>
+      <tr><td>Variável de ambiente</td><td><code>%VAR%</code></td><td><code>$VAR</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="s9">
+  <h2>9 · Glossário alfabético</h2>
+  <p>Pra consulta rápida. Termos em ordem A-Z.</p>
+  <dl>
+    <dt>add</dt><dd>Comando git que marca arquivos pro próximo commit (staging).</dd>
+    <dt>branch</dt><dd>Linha paralela de trabalho no git.</dd>
+    <dt>CLI</dt><dd>Command Line Interface, programa que roda no terminal.</dd>
+    <dt>clone</dt><dd>Cópia inicial completa de um repositório remoto.</dd>
+    <dt>commit</dt><dd>Snapshot gravado no histórico local.</dd>
+    <dt>conflict</dt><dd>Git não conseguiu juntar mudanças automaticamente.</dd>
+    <dt>diff</dt><dd>Diferença entre duas versões.</dd>
+    <dt>fetch</dt><dd>Baixa novidades do remoto sem aplicar.</dd>
+    <dt>fork</dt><dd>Cópia independente de um repo no GitHub.</dd>
+    <dt>gitignore</dt><dd>Arquivo que lista o que git deve ignorar.</dd>
+    <dt>hash / SHA</dt><dd>Identificador único do commit (ex: <code>6dacc3c</code>).</dd>
+    <dt>HEAD</dt><dd>Ponteiro pra "onde você está" no histórico.</dd>
+    <dt>merge</dt><dd>Junta uma branch dentro da outra.</dd>
+    <dt>origin</dt><dd>Apelido padrão do remoto principal.</dd>
+    <dt>PR (Pull Request)</dt><dd>Pedido pra mergear branch na principal.</dd>
+    <dt>pull</dt><dd>fetch + merge na sua branch atual.</dd>
+    <dt>push</dt><dd>Envia commits locais pro remoto.</dd>
+    <dt>rebase</dt><dd>Reescreve histórico "por cima" de outra branch.</dd>
+    <dt>reflog</dt><dd>Log interno do git, salva-vidas pra recuperar coisas perdidas.</dd>
+    <dt>remote</dt><dd>Servidor remoto (GitHub).</dd>
+    <dt>repo</dt><dd>Repositório, projeto versionado.</dd>
+    <dt>stash</dt><dd>Gaveta temporária pra mudanças não commitadas.</dd>
+    <dt>staging / index</dt><dd>Cesta de arquivos prontos pra commit.</dd>
+    <dt>switch</dt><dd>Troca de branch (forma moderna do checkout).</dd>
+    <dt>tag</dt><dd>Apelido fixo num commit (ex: <code>v0.9.0</code>).</dd>
+    <dt>terminal</dt><dd>Janela onde você digita comandos.</dd>
+    <dt>upstream</dt><dd>Remoto "pai" quando você fez fork.</dd>
+    <dt>working tree</dt><dd>Seus arquivos como estão agora no disco.</dd>
+  </dl>
+</section>
+
+</main>
+
+</body>
+</html>

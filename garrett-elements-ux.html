@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Elements of User Experience — Garrett 2002</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --accent: #c8a96e;
+    --accent2: #7eb8c8;
+    --accent3: #c87eb8;
+    --green: #7ec88a;
+    --red: #c87e7e;
+
+    --strategy: #4a3f28;
+    --scope: #2d3f28;
+    --structure: #283040;
+    --skeleton: #3a2840;
+    --surface: #402838;
+
+    --strategy-text: #c8a96e;
+    --scope-text: #7ec88a;
+    --structure-text: #7eb8c8;
+    --skeleton-text: #b87ec8;
+    --surface-text: #c87e9e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(180deg, #1a1208 0%, #0d0d0d 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+  }
+
+  .hero-label {
+    font-size: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 41px;
+    font-weight: normal;
+    color: var(--accent);
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 30px;
+  }
+
+  .hero-meta {
+    display: inline-flex;
+    gap: 32px;
+    font-size: 15px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+  }
+
+  .hero-meta span { color: var(--text); }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    margin-top: 56px;
+  }
+
+  .section-header:first-child { margin-top: 0; }
+
+  .section-num {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    min-width: 28px;
+  }
+
+  .section-header h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .card-header {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    font-size: 15px;
+    color: #c0c0c0;
+    margin-bottom: 12px;
+  }
+
+  .card p:last-child { margin-bottom: 0; }
+
+  /* QUOTE */
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    background: var(--bg3);
+    font-size: 15px;
+    font-style: italic;
+    color: #bbb;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  blockquote cite {
+    display: block;
+    font-size: 15px;
+    color: var(--muted);
+    font-style: normal;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* DIAGRAM */
+  .diagram-container {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 40px;
+    margin: 24px 0;
+  }
+
+  .diagram-title {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .diagram-wrapper {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .diagram-label-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .diagram-faixa-header {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto 8px;
+  }
+
+  .faixa-label {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .faixa-label.func { color: var(--accent2); border-color: var(--accent2); background: rgba(126,184,200,0.06); }
+  .faixa-label.info { color: var(--accent3); border-color: var(--accent3); background: rgba(200,126,184,0.06); }
+  .faixa-label.empty { background: transparent; border-color: transparent; }
+
+  .plane-row {
+    display: contents;
+  }
+
+  .plane-label {
+    padding: 16px 12px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-right: none;
+  }
+
+  .plane-cell {
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-left: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .plane-cell-item {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .plane-cell-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* Plane colors */
+  .plane-strategy .plane-label { color: var(--strategy-text); background: var(--strategy); border-color: var(--strategy-text); }
+  .plane-strategy .plane-cell  { background: rgba(74,63,40,0.3); border-color: var(--strategy-text); border-top-color: var(--strategy-text); }
+  .plane-strategy .plane-cell-item { color: var(--strategy-text); }
+
+  .plane-scope .plane-label { color: var(--scope-text); background: var(--scope); border-color: var(--scope-text); }
+  .plane-scope .plane-cell  { background: rgba(45,63,40,0.3); border-color: var(--scope-text); }
+  .plane-scope .plane-cell-item { color: var(--scope-text); }
+
+  .plane-structure .plane-label { color: var(--structure-text); background: var(--structure); border-color: var(--structure-text); }
+  .plane-structure .plane-cell  { background: rgba(40,48,64,0.3); border-color: var(--structure-text); }
+  .plane-structure .plane-cell-item { color: var(--structure-text); }
+
+  .plane-skeleton .plane-label { color: var(--skeleton-text); background: var(--skeleton); border-color: var(--skeleton-text); }
+  .plane-skeleton .plane-cell  { background: rgba(58,40,64,0.3); border-color: var(--skeleton-text); }
+  .plane-skeleton .plane-cell-item { color: var(--skeleton-text); }
+
+  .plane-surface .plane-label { color: var(--surface-text); background: var(--surface); border-color: var(--surface-text); }
+  .plane-surface .plane-cell  { background: rgba(64,40,56,0.3); border-color: var(--surface-text); }
+  .plane-surface .plane-cell-item { color: var(--surface-text); }
+
+  /* ARROW */
+  .cascade-arrow {
+    text-align: center;
+    padding: 16px 0;
+    color: var(--muted);
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
+
+  /* PLANES DETAIL */
+  .plane-detail {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .plane-detail-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .plane-detail-num {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .plane-detail-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .plane-detail-subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  .plane-detail-body {
+    padding: 24px;
+    background: var(--bg2);
+  }
+
+  .plane-question {
+    font-size: 15px;
+    font-style: italic;
+    color: #aaa;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    background: var(--bg3);
+    border-radius: 3px;
+  }
+
+  .plane-question::before {
+    content: "Pergunta central: ";
+    color: var(--muted);
+    font-style: normal;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .components-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .component-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px;
+  }
+
+  .component-box.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .component-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .component-faixa {
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .component-faixa.func { color: var(--accent2); }
+  .component-faixa.info { color: var(--accent3); }
+  .component-faixa.cross { color: var(--accent); }
+
+  .component-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .component-box ul li {
+    font-size: 15px;
+    color: #b0b0b0;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .component-box ul li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .cascade-note {
+    font-size: 15px;
+    color: #999;
+    padding: 10px 16px;
+    background: var(--bg3);
+    border-left: 2px solid var(--muted);
+    border-radius: 0 3px 3px 0;
+    margin-top: 16px;
+  }
+
+  .cascade-note::before {
+    content: "Cascata ascendente: ";
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Plane header colors */
+  .plane-detail.strategy { border-color: var(--strategy-text); }
+  .plane-detail.strategy .plane-detail-header { background: var(--strategy); }
+  .plane-detail.strategy .plane-detail-title { color: var(--strategy-text); }
+
+  .plane-detail.scope { border-color: var(--scope-text); }
+  .plane-detail.scope .plane-detail-header { background: var(--scope); }
+  .plane-detail.scope .plane-detail-title { color: var(--scope-text); }
+
+  .plane-detail.structure { border-color: var(--structure-text); }
+  .plane-detail.structure .plane-detail-header { background: var(--structure); }
+  .plane-detail.structure .plane-detail-title { color: var(--structure-text); }
+
+  .plane-detail.skeleton { border-color: var(--skeleton-text); }
+  .plane-detail.skeleton .plane-detail-header { background: var(--skeleton); }
+  .plane-detail.skeleton .plane-detail-title { color: var(--skeleton-text); }
+
+  .plane-detail.surface { border-color: var(--surface-text); }
+  .plane-detail.surface .plane-detail-header { background: var(--surface); }
+  .plane-detail.surface .plane-detail-title { color: var(--surface-text); }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin: 20px 0;
+  }
+
+  th {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  td {
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    color: #c0c0c0;
+    vertical-align: top;
+  }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td:first-child { font-weight: 600; }
+
+  /* SEYAI SECTION */
+  .seyai-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .seyai-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .seyai-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .seyai-card-title.ares { color: var(--accent); }
+  .seyai-card-title.vulcano { color: var(--accent2); }
+
+  .seyai-card ul { list-style: none; }
+
+  .seyai-card ul li {
+    font-size: 15px;
+    color: #b0b0b0;
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .seyai-card ul li:last-child { border-bottom: none; }
+
+  .seyai-card ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .plane-badge {
+    display: inline-block;
+    font-size: 15px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .pb-strategy { color: var(--strategy-text); border-color: var(--strategy-text); background: var(--strategy); }
+  .pb-scope     { color: var(--scope-text);    border-color: var(--scope-text);    background: var(--scope);    }
+  .pb-structure { color: var(--structure-text);border-color: var(--structure-text);background: var(--structure);}
+  .pb-skeleton  { color: var(--skeleton-text); border-color: var(--skeleton-text); background: var(--skeleton); }
+  .pb-surface   { color: var(--surface-text);  border-color: var(--surface-text);  background: var(--surface);  }
+
+  /* PROTOCOL BOX */
+  .protocol-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .protocol-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .protocol-step {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    margin-bottom: 12px;
+  }
+
+  .protocol-agent {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 10px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-right: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .protocol-agent.vulcano { color: var(--accent2); }
+
+  .protocol-items {
+    padding: 10px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+  }
+
+  .protocol-items ul { list-style: none; }
+
+  .protocol-items ul li {
+    font-size: 15px;
+    color: #b0b0b0;
+    padding: 2px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .protocol-items ul li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+
+  /* CASCADE VISUAL */
+  .cascade-visual {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin: 20px 0;
+  }
+
+  .cascade-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cascade-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .cascade-plane-tag {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .cascade-plane-desc {
+    font-size: 15px;
+    color: #999;
+    flex: 1;
+  }
+
+  .cascade-connector {
+    text-align: left;
+    padding: 4px 0 4px 50px;
+    color: var(--muted);
+    font-size: 19px;
+  }
+
+  /* CRITICAS */
+  .critica-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--red);
+  }
+
+  .critica-item.extensao { border-left-color: var(--green); }
+
+  .critica-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .critica-item.extensao .critica-title { color: var(--green); }
+
+  .critica-text {
+    font-size: 15px;
+    color: #b0b0b0;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    margin-top: 60px;
+    font-size: 15px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 2;
+  }
+
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* PILLS */
+  .pill {
+    display: inline-block;
+    font-size: 15px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .pill-year { background: rgba(200,169,110,0.15); color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+  .pill-tag  { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .hero { padding: 40px 20px; }
+    .hero h1 { font-size: 28px; }
+    .container { padding: 24px 20px; }
+    .components-grid { grid-template-columns: 1fr; }
+    .seyai-grid { grid-template-columns: 1fr; }
+    .diagram-wrapper, .diagram-faixa-header { grid-template-columns: 80px 1fr 1fr; }
+    .hero-meta { flex-direction: column; gap: 8px; }
+    .protocol-step { grid-template-columns: 1fr; }
+    .protocol-agent { border-right: 1px solid var(--border); border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Fundamento Filosófico · SeyAI Research</div>
+  <h1>The Elements of User Experience</h1>
+  <div class="hero-sub">Jesse James Garrett · 2002 · New Riders</div>
+  <div style="margin-bottom:20px">
+    <span class="pill pill-year">2002 · 1ª edição</span>
+    <span class="pill pill-year">2010 · 2ª edição</span>
+    <span class="pill pill-tag">UX Framework</span>
+    <span class="pill pill-tag">5 Planes</span>
+    <span class="pill pill-tag">Information Architecture</span>
+    <span class="pill pill-tag">Multi-Agent Systems</span>
+  </div>
+  <div class="hero-meta">
+    <div>Autor: <span>Jesse James Garrett</span></div>
+    <div>Publicação: <span>New Riders / Pearson</span></div>
+    <div>Relevância: <span>Ecossistema de Agentes SeyAI</span></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- CONTEXTO HISTORICO -->
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <h2>Contexto Histórico</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card">
+    <p>O diagrama original foi publicado em <strong>março de 2000</strong> no site pessoal de Garrett (jjg.net). Em menos de um ano, foi baixado mais de 20.000 vezes — tornando-se o artefato mais colado em paredes de escritórios de web design da época.</p>
+    <p>Em 2002, o livro foi publicado pela New Riders. Em 2010, a 2ª edição expandiu o framework para além da web (mobile, aplicativos, outros produtos digitais).</p>
+  </div>
+
+  <blockquote>
+    "The Web was originally conceived as a hypertextual information space; but the development of increasingly sophisticated front- and back-end technologies has fostered its use as a remote software interface. This dual nature has led to much confusion, as user experience practitioners have attempted to adapt their terminology."
+    <cite>— Jesse James Garrett, The Elements of User Experience, cap. 2</cite>
+  </blockquote>
+
+  <div class="card">
+    <div class="card-header">O Problema que Garrett Resolveu</div>
+    <p>No final dos anos 1990, havia dois campos brigando pela mesma tela: <strong>designers vindos de information architecture</strong> (estrutura de conteúdo) e <strong>engenheiros vindos de software interface</strong> (funcionalidade). Nenhuma linguagem comum existia. Times de produto não conseguiam nem nomear o que estavam fazendo.</p>
+    <p>O framework de Garrett deu a língua comum — mostrando que ambos os campos eram necessários, simultaneamente, em camadas distintas.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px">
+    <div class="card" style="margin:0">
+      <div class="card-header">2000</div>
+      <p>Diagrama publicado online. 20.000+ downloads em menos de 1 ano.</p>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="card-header">2001 — 2005</div>
+      <p>Co-funda Adaptive Path. Cunha o termo <strong>Ajax</strong> (Asynchronous JavaScript and XML).</p>
+    </div>
+    <div class="card" style="margin:0">
+      <div class="card-header">2002 — 2010</div>
+      <p>Livro publicado. 2ª edição expande framework para todos os produtos digitais.</p>
+    </div>
+  </div>
+
+
+  <!-- O DIAGRAMA -->
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <h2>O Diagrama: Lógica Estrutural</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="diagram-container">
+    <div class="diagram-title">Diagrama dos 5 Planos — Jesse James Garrett (2002)</div>
+
+    <div class="diagram-faixa-header">
+      <div class="faixa-label empty"></div>
+      <div class="faixa-label func">Funcionalidade<br><span style="font-size:10px;color:#666">produto como ferramenta</span></div>
+      <div class="faixa-label info">Informação<br><span style="font-size:10px;color:#666">produto como meio</span></div>
+    </div>
+
+    <div class="diagram-wrapper">
+
+      <div class="plane-row plane-surface">
+        <div class="plane-label">SURFACE</div>
+        <div class="plane-cell" style="grid-column:2/4">
+          <div class="plane-cell-item">Visual Design</div>
+          <div class="plane-cell-desc">Convergência total das duas faixas — o que o usuário percebe diretamente</div>
+        </div>
+      </div>
+
+      <div class="plane-row plane-skeleton">
+        <div class="plane-label">SKELETON</div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Interface Design</div>
+          <div class="plane-cell-desc">Elementos interativos: botões, formulários, controles</div>
+        </div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Navigation Design</div>
+          <div class="plane-cell-desc">Menus, breadcrumbs, links, indicadores de posição</div>
+        </div>
+      </div>
+
+      <div class="plane-row plane-structure">
+        <div class="plane-label">STRUCTURE</div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Interaction Design</div>
+          <div class="plane-cell-desc">Como o sistema responde a ações do usuário</div>
+        </div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Information Architecture</div>
+          <div class="plane-cell-desc">Organização e rotulação do conteúdo</div>
+        </div>
+      </div>
+
+      <div class="plane-row plane-scope">
+        <div class="plane-label">SCOPE</div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Functional Specifications</div>
+          <div class="plane-cell-desc">O que cada feature faz e como se comporta</div>
+        </div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Content Requirements</div>
+          <div class="plane-cell-desc">Inventário do conteúdo necessário</div>
+        </div>
+      </div>
+
+      <div class="plane-row plane-strategy">
+        <div class="plane-label">STRATEGY</div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">Product Objectives</div>
+          <div class="plane-cell-desc">Metas do negócio e critérios de sucesso</div>
+        </div>
+        <div class="plane-cell">
+          <div class="plane-cell-item">User Needs</div>
+          <div class="plane-cell-desc">O que os usuários precisam obter do produto</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="max-width:700px;margin:16px auto 0;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted)">
+      <span>← mais abstrato</span>
+      <span style="letter-spacing:2px;text-transform:uppercase">eixo de abstração</span>
+      <span>mais concreto →</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div class="card">
+      <div class="card-header">Eixo Vertical</div>
+      <p>Quanto mais baixo o plano, mais abstrato e invisível ao usuário final. Quanto mais alto, mais concreto e perceptível.</p>
+      <p>Strategy é o que ninguém vê. Surface é tudo que o usuário percebe.</p>
+    </div>
+    <div class="card">
+      <div class="card-header">Sobreposição dos Planos</div>
+      <p>Os planos não são camadas rígidas. No diagrama original, cada plano se sobrepõe parcialmente ao adjacente — indicando que o trabalho em planos vizinhos acontece em paralelo, com janelas de influência recíproca.</p>
+    </div>
+  </div>
+
+
+  <!-- A REGRA CORE -->
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <h2>A Regra Core: Cascata de Consequências</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <blockquote>
+    "The choices available to us on each plane are constrained by the decisions we make about issues on the planes below it."
+    <cite>— Jesse James Garrett</cite>
+  </blockquote>
+
+  <blockquote>
+    "Decisions on lower planes affect everything above them; poor strategy leads to poor interfaces."
+    <cite>— Jesse James Garrett</cite>
+  </blockquote>
+
+  <div class="cascade-visual">
+    <div class="diagram-title" style="margin-bottom:24px">Direção da Cascata</div>
+    <div class="cascade-flow">
+
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-strategy">Strategy</span>
+        <span class="cascade-plane-desc">Define objetivos. Toda decisão acima deve ser rastreável até aqui.</span>
+      </div>
+      <div class="cascade-connector">↓</div>
+
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-scope">Scope</span>
+        <span class="cascade-plane-desc">Feature mal especificada aqui gera contradições nos planos acima.</span>
+      </div>
+      <div class="cascade-connector">↓</div>
+
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-structure">Structure</span>
+        <span class="cascade-plane-desc">Organiza o escopo. Erros de arquitetura se amplificam no skeleton.</span>
+      </div>
+      <div class="cascade-connector">↓</div>
+
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-skeleton">Skeleton</span>
+        <span class="cascade-plane-desc">Torna a estrutura tangível. Primeiro plano com representação visual.</span>
+      </div>
+      <div class="cascade-connector">↓</div>
+
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-surface">Surface</span>
+        <span class="cascade-plane-desc">Revela a qualidade dos planos inferiores. Não pode compensar falhas abaixo.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Bidirecionalidade</div>
+    <p>Garrett reconhece que a cascata tem direção primária de baixo para cima, mas existe bidirecionalidade: decisões em planos superiores podem forçar revisão de planos inferiores. Um constraint de visual design pode revelar um problema de information architecture que force revisão da estrutura.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Implicação Prática</div>
+    <p>O erro mais caro em desenvolvimento de produto é diferir decisões de strategy enquanto decisões de surface já foram tomadas. O custo de correção escala exponencialmente conforme a cascata avança.</p>
+  </div>
+
+
+  <!-- OS 5 PLANOS DETALHADOS -->
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <h2>Os Cinco Planos</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="plane-detail strategy">
+    <div class="plane-detail-header">
+      <div class="plane-detail-num">01 / 05</div>
+      <div class="plane-detail-title">Strategy</div>
+      <div class="plane-detail-subtitle">mais abstrato · base do diagrama</div>
+    </div>
+    <div class="plane-detail-body">
+      <div class="plane-question">"What do we want to get out of this product? What do our users want to get out of it?"</div>
+      <div class="components-grid">
+        <div class="component-box">
+          <div class="component-name">Product Objectives</div>
+          <div class="component-faixa func">Faixa: Funcionalidade</div>
+          <ul>
+            <li>Metas do negócio com o produto</li>
+            <li>Objetivos comerciais, de marca, de retenção</li>
+            <li>Critérios de sucesso mensuráveis</li>
+            <li>Erro comum: confundir objetivos com features</li>
+          </ul>
+        </div>
+        <div class="component-box">
+          <div class="component-name">User Needs</div>
+          <div class="component-faixa info">Faixa: Informação</div>
+          <ul>
+            <li>O que os usuários precisam obter</li>
+            <li>Descoberto via pesquisa, não via suposição</li>
+            <li>Necessidades explícitas e implícitas</li>
+            <li>"Balance your objectives and user needs"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cascade-note">Toda decisão de scope, estrutura, skeleton e surface deve ser rastreável até aqui. Se não há rastreabilidade, a feature é suspeita.</div>
+    </div>
+  </div>
+
+  <!-- SCOPE -->
+  <div class="plane-detail scope">
+    <div class="plane-detail-header">
+      <div class="plane-detail-num">02 / 05</div>
+      <div class="plane-detail-title">Scope</div>
+      <div class="plane-detail-subtitle">inventário das intenções</div>
+    </div>
+    <div class="plane-detail-body">
+      <div class="plane-question">"What features and content will be included?"</div>
+      <div class="components-grid">
+        <div class="component-box">
+          <div class="component-name">Functional Specifications</div>
+          <div class="component-faixa func">Faixa: Funcionalidade</div>
+          <ul>
+            <li>Documentação de cada feature</li>
+            <li>O que ela faz e como se comporta</li>
+            <li>Estados: normal, erro, vazio, carregando</li>
+            <li>Não é wireframe — é descrição comportamental</li>
+            <li>Features simples revelam complexidade ao especificar</li>
+          </ul>
+        </div>
+        <div class="component-box">
+          <div class="component-name">Content Requirements</div>
+          <div class="component-faixa info">Faixa: Informação</div>
+          <ul>
+            <li>Inventário do conteúdo necessário</li>
+            <li>Texto, imagens, dados, formatos</li>
+            <li>Quem produz, quem mantém, frequência</li>
+            <li>Conteúdo necessário vs desejável</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cascade-note">Uma feature mal especificada no scope gera ambiguidade no structure, contradições no skeleton, e interfaces incoerentes no surface.</div>
+    </div>
+  </div>
+
+  <!-- STRUCTURE -->
+  <div class="plane-detail structure">
+    <div class="plane-detail-header">
+      <div class="plane-detail-num">03 / 05</div>
+      <div class="plane-detail-title">Structure</div>
+      <div class="plane-detail-subtitle">organiza o escopo em sistema coerente</div>
+    </div>
+    <div class="plane-detail-body">
+      <div class="plane-question">"How do the pieces fit together? What happens when the user acts?"</div>
+      <div class="components-grid">
+        <div class="component-box">
+          <div class="component-name">Interaction Design</div>
+          <div class="component-faixa func">Faixa: Funcionalidade</div>
+          <ul>
+            <li>Como o sistema responde a ações do usuário</li>
+            <li>Modelos conceituais do sistema</li>
+            <li>Fluxos de tarefa e tratamento de erros</li>
+            <li>Estados do sistema</li>
+            <li>Instrumentos: fluxogramas, diagramas de estado</li>
+          </ul>
+        </div>
+        <div class="component-box">
+          <div class="component-name">Information Architecture</div>
+          <div class="component-faixa info">Faixa: Informação</div>
+          <ul>
+            <li>Organização e rotulação do conteúdo</li>
+            <li>Taxonomias e hierarquias</li>
+            <li>Esquemas de categorização</li>
+            <li>Instrumentos: sitemaps, card sorting</li>
+          </ul>
+        </div>
+      </div>
+      <div class="component-box" style="margin-top:12px">
+        <div class="component-name">Information Design</div>
+        <div class="component-faixa cross">Atravessa ambas as faixas</div>
+        <p style="font-size:13px;color:#b0b0b0;margin:0">A apresentação de informação para facilitar compreensão é necessária tanto para interfaces funcionais quanto para sistemas de conteúdo. É o único elemento que não pertence exclusivamente a nenhuma das faixas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKELETON -->
+  <div class="plane-detail skeleton">
+    <div class="plane-detail-header">
+      <div class="plane-detail-num">04 / 05</div>
+      <div class="plane-detail-title">Skeleton</div>
+      <div class="plane-detail-subtitle">primeiro plano com representação visual concreta</div>
+    </div>
+    <div class="plane-detail-body">
+      <div class="plane-question">"Where are elements positioned? How is information arranged for comprehension?"</div>
+      <div class="components-grid">
+        <div class="component-box">
+          <div class="component-name">Interface Design</div>
+          <div class="component-faixa func">Faixa: Funcionalidade</div>
+          <ul>
+            <li>Arranjo de elementos interativos</li>
+            <li>Botões, formulários, controles, links de ação</li>
+            <li>Quais elementos aparecem e onde</li>
+            <li>Como comunicam seu propósito interativo</li>
+          </ul>
+        </div>
+        <div class="component-box">
+          <div class="component-name">Navigation Design</div>
+          <div class="component-faixa info">Faixa: Informação</div>
+          <ul>
+            <li>Elementos para mover-se pela IA</li>
+            <li>Menus, breadcrumbs, links contextuais</li>
+            <li>Indicadores de posição</li>
+            <li>Deve refletir a estrutura do plano anterior</li>
+          </ul>
+        </div>
+        <div class="component-box full-width">
+          <div class="component-name">Information Design</div>
+          <div class="component-faixa cross">Atravessa ambas as faixas</div>
+          <ul style="columns:2;gap:20px">
+            <li>Hierarquia visual</li>
+            <li>Agrupamento e sequenciamento</li>
+            <li>Gráficos vs texto</li>
+            <li>Prioridade de atenção</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:16px;margin-bottom:0">"The skeleton is a physical manifestation of the site's more abstract structure."</blockquote>
+      <div class="cascade-note" style="margin-top:16px">Instrumentos: wireframes (sem cor, sem tipografia final — apenas forma e posição).</div>
+    </div>
+  </div>
+
+  <!-- SURFACE -->
+  <div class="plane-detail surface">
+    <div class="plane-detail-header">
+      <div class="plane-detail-num">05 / 05</div>
+      <div class="plane-detail-title">Surface</div>
+      <div class="plane-detail-subtitle">mais concreto · topo do diagrama</div>
+    </div>
+    <div class="plane-detail-body">
+      <div class="plane-question">"What does the user see and experience directly?"</div>
+      <div class="component-box full-width">
+        <div class="component-name">Visual Design</div>
+        <div class="component-faixa cross">Convergência total das duas faixas</div>
+        <div class="components-grid" style="margin-top:12px">
+          <ul>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Cor e tipografia</li>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Imagens e texturas</li>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Espaçamento e movimento</li>
+          </ul>
+          <ul>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Hierarquia visual</li>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Consistência de estilo</li>
+            <li style="font-size:13px;color:#b0b0b0;padding:3px 0">Identidade visual</li>
+          </ul>
+        </div>
+      </div>
+      <blockquote style="margin-top:16px">"Features and functions always matter, but user experience has a far greater effect on customer loyalty."</blockquote>
+      <div class="cascade-note">O design visual não pode compensar falhas estruturais abaixo. Um produto bonito com arquitetura confusa ainda falha. O surface revela a qualidade dos planos inferiores — não a substitui.</div>
+    </div>
+  </div>
+
+
+  <!-- TABELA COMPLETA -->
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <h2>As Duas Faixas: Tabela Completa</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Plano</th>
+        <th style="color:var(--accent2)">Faixa Funcionalidade</th>
+        <th style="color:var(--accent3)">Faixa Informação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="plane-badge pb-strategy">Strategy</span></td>
+        <td>Product Objectives</td>
+        <td>User Needs</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-scope">Scope</span></td>
+        <td>Functional Specifications</td>
+        <td>Content Requirements</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-structure">Structure</span></td>
+        <td>Interaction Design</td>
+        <td>Information Architecture</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-skeleton">Skeleton</span></td>
+        <td>Interface Design</td>
+        <td>Navigation Design</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-surface">Surface</span></td>
+        <td colspan="2" style="text-align:center;color:var(--accent)">Visual Design — convergência total das duas faixas</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card">
+    <div class="card-header">Information Design: o elemento que atravessa tudo</div>
+    <p>Information Design (parte do Skeleton) é o único componente que não pertence exclusivamente a nenhuma das faixas. Atravessa as duas porque a apresentação clara de informação é necessária tanto para interfaces funcionais quanto para sistemas de conteúdo.</p>
+    <p>No Surface, as duas faixas convergem completamente. A distinção entre produto como ferramenta e produto como informação desaparece — o usuário experimenta o produto inteiro.</p>
+  </div>
+
+
+  <!-- CRITICAS -->
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <h2>Críticas Acadêmicas e Extensões</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="critica-item">
+    <div class="critica-title">Incompletude (reconhecida pelo autor)</div>
+    <div class="critica-text">Garrett declarou explicitamente que seu modelo não descrevia o processo de desenvolvimento nem os papéis da equipe de UX. Era um mapa de competências necessárias, não um processo de execução.</div>
+  </div>
+
+  <div class="critica-item">
+    <div class="critica-title">Linearidade Implícita</div>
+    <div class="critica-text">Apesar de Garrett reconhecer sobreposição, a estrutura visual do diagrama sugere sequencialidade que pode levar equipes a interpretar o framework como waterfall — contra-indicado em metodologias ágeis.</div>
+  </div>
+
+  <div class="critica-item">
+    <div class="critica-title">Crítica de Operacionalização (Dalton, 2007)</div>
+    <div class="critica-text">O framework descreve o que cada plano contém, mas oferece pouca orientação sobre como fazer as decisões dentro de cada plano. É um mapa de território, não um guia de navegação. A seta causal estava implícita, não explícita.</div>
+  </div>
+
+  <div class="critica-item">
+    <div class="critica-title">Ausência de Acessibilidade</div>
+    <div class="critica-text">O framework não contempla acessibilidade como concern de primeira classe — ela aparece dispersa entre skeleton e surface, sem plano dedicado a inclusive design.</div>
+  </div>
+
+  <div class="critica-item extensao">
+    <div class="critica-title">Extensão: Content Strategy (Halvorson, 2009)</div>
+    <div class="critica-text">Kristina Halvorson expandiu o plano de Scope/Content Requirements em uma disciplina própria — a estratégia de conteúdo — usando o framework de Garrett como fundação.</div>
+  </div>
+
+  <div class="critica-item extensao">
+    <div class="critica-title">Extensão: IA Generativa (2024–2026)</div>
+    <div class="critica-text">Pesquisadores aplicaram os 5 planos a análise de produtos de IA generativa, identificando o plano Structure como o de maior falha em sistemas LLM: a natureza não-determinística dos modelos cria estados de sistema difíceis de mapear via interaction design tradicional.</div>
+  </div>
+
+
+  <!-- SEYAI -->
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <h2>Aplicação ao Ecossistema SeyAI</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Premissa</div>
+    <p>Em um sistema multi-agente, diferentes agentes operam com autonomia em diferentes níveis de abstração. O framework de Garrett oferece uma taxonomia precisa dessas camadas — permitindo mapear onde cada agente opera, quais dependências existem entre eles, e onde há lacunas ou sobreposições.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Plano Garrett</th>
+        <th>Componente</th>
+        <th>Agente SeyAI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="plane-badge pb-strategy">Strategy</span></td>
+        <td>Product Objectives + User Needs</td>
+        <td>Thiago (dono) + briefing do operador</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-scope">Scope</span></td>
+        <td>Functional Specs + Content Requirements</td>
+        <td>Agente de planejamento / PLANNER</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-structure">Structure</span></td>
+        <td>Interaction Design</td>
+        <td>Orquestrador do pipeline</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-structure">Structure</span></td>
+        <td>Information Architecture</td>
+        <td>Agentes de pesquisa e categorização</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-skeleton">Skeleton</span></td>
+        <td>Information Design</td>
+        <td><strong>ARES</strong> — organiza informação para persuasão, hierarquia argumentativa</td>
+      </tr>
+      <tr>
+        <td><span class="plane-badge pb-surface">Surface</span></td>
+        <td>Visual Design + Interface Design</td>
+        <td><strong>VULCANO</strong> — visual design + estrutura visual da página</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ARES vs VULCANO -->
+  <div style="margin-top:28px;margin-bottom:16px">
+    <div class="section-num" style="margin-bottom:12px">O CASO ARES — VULCANO</div>
+  </div>
+
+  <div class="seyai-grid">
+    <div class="seyai-card">
+      <div class="seyai-card-title ares">ARES</div>
+      <ul>
+        <li>Opera primariamente no plano <span class="plane-badge pb-skeleton">Skeleton</span> → Information Design</li>
+        <li>Secundariamente no <span class="plane-badge pb-surface">Surface</span> via copy</li>
+        <li>Define hierarquia do conteúdo persuasivo</li>
+        <li>Determina o que aparece, em que ordem, com que peso emocional</li>
+        <li>É a "ossatura argumentativa" da página</li>
+      </ul>
+    </div>
+    <div class="seyai-card">
+      <div class="seyai-card-title vulcano">VULCANO</div>
+      <ul>
+        <li>Opera primariamente no plano <span class="plane-badge pb-surface">Surface</span> → Visual Design</li>
+        <li>Carrega elementos do <span class="plane-badge pb-skeleton">Skeleton</span> → Interface Design</li>
+        <li>Estrutura visual da página e componentes</li>
+        <li>Traduz hierarquia argumentativa em linguagem visual</li>
+        <li>Responsável pela expressão estética final</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--red)">
+    <div class="card-header" style="color:var(--red)">A Tensão de Garrett Aplicada</div>
+    <p>Quando ARES define uma hierarquia de argumentos (skeleton) e VULCANO implementa um layout visual (surface) sem acesso explícito às decisões do ARES, há risco de <strong>desalinhamento entre os planos</strong>. O visual pode contradizer a intenção do copy.</p>
+    <p>Segundo a cascata de Garrett: o VULCANO não pode compensar uma hierarquia mal definida pelo ARES. E o ARES não pode assumir que o VULCANO inferirá corretamente suas intenções.</p>
+  </div>
+
+  <div class="protocol-box">
+    <div class="protocol-title">Protocolo ARES → VULCANO (proposta de implementação)</div>
+
+    <div class="protocol-step">
+      <div class="protocol-agent">ARES entrega</div>
+      <div class="protocol-items">
+        <ul>
+          <li>Copy final completo (surface)</li>
+          <li>Hierarquia de argumentos numerada (skeleton) — o mapa de peso persuasivo</li>
+          <li>Mapa emocional: o que deve ter mais peso visual (urgência, confiança, desejo)</li>
+          <li>Elementos interativos requeridos: CTAs, âncoras, formulários, gatilhos</li>
+          <li>Constraints de conteúdo: o que não pode ser cortado visualmente</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="protocol-step">
+      <div class="protocol-agent vulcano">VULCANO recebe e</div>
+      <div class="protocol-items">
+        <ul>
+          <li>Traduz hierarquia de argumentos em hierarquia visual (tamanho, cor, posição, peso tipográfico)</li>
+          <li>Valida que o peso visual corresponde ao peso argumentativo definido pelo ARES</li>
+          <li>Documenta decisões visuais que diferem da hierarquia do ARES (e por quê)</li>
+          <li>Retorna ao ARES qualquer conflito entre copy e possibilidade visual</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASCATA NO SEYAI -->
+  <div style="margin-top:28px;margin-bottom:16px">
+    <div class="section-num" style="margin-bottom:12px">A Cascata em Sistemas Multi-Agente</div>
+  </div>
+
+  <div class="card" style="border-color:var(--red)">
+    <div class="card-header" style="color:var(--red)">Risco Central</div>
+    <p>Em sistemas autônomos, erros de strategy não são detectados até o surface — e o ciclo de feedback é muito mais lento que em design humano. Um briefing mal definido (strategy ruim) pode percorrer todo o pipeline antes de o operador ver que o resultado está errado.</p>
+  </div>
+
+  <div class="cascade-visual">
+    <div class="diagram-title" style="margin-bottom:20px">Exemplo de falha em cascata — Ecossistema SeyAI</div>
+    <div class="cascade-flow">
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-strategy">Strategy</span>
+        <span class="cascade-plane-desc" style="color:var(--red)">Briefing mal definido → objetivo do cliente não capturado</span>
+      </div>
+      <div class="cascade-connector" style="color:var(--red)">↓</div>
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-scope">Scope</span>
+        <span class="cascade-plane-desc" style="color:var(--red)">PLANNER gera especificação de copy incorreta</span>
+      </div>
+      <div class="cascade-connector" style="color:var(--red)">↓</div>
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-structure">Structure</span>
+        <span class="cascade-plane-desc" style="color:var(--red)">Pipeline não detecta a inconsistência (sem validação cruzada)</span>
+      </div>
+      <div class="cascade-connector" style="color:var(--red)">↓</div>
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-skeleton">Skeleton</span>
+        <span class="cascade-plane-desc" style="color:var(--red)">ARES produz hierarquia argumentativa baseada em premissa errada</span>
+      </div>
+      <div class="cascade-connector" style="color:var(--red)">↓</div>
+      <div class="cascade-item">
+        <span class="cascade-plane-tag pb-surface">Surface</span>
+        <span class="cascade-plane-desc" style="color:var(--red)">VULCANO implementa visual sobre estrutura errada → página não converte</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PROPOSTA DE IMPLEMENTACAO -->
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <h2>Proposta de Implementação no SeyAI</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+    <div class="card">
+      <div class="card-header">1. Protocolo de Handoff entre Planos</div>
+      <p>Todo agente que opera em um plano deve entregar para o próximo:</p>
+      <ul style="list-style:none;margin-top:10px">
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Output do plano em formato explícito</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Mapa de decisões e justificativas (rastreabilidade)</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Constraints que limitaram suas escolhas</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">2. Diagrama de Responsabilidades por Agente</div>
+      <p>Cada agente no ecossistema deve ter documentado:</p>
+      <ul style="list-style:none;margin-top:10px">
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Em qual(is) plano(s) do Garrett opera</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Qual faixa (funcionalidade, informação, ou ambas)</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Decisões de planos inferiores que consome como input</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">3. Dedup de Responsabilidades</div>
+      <p>O mapeamento explícito permite identificar:</p>
+      <ul style="list-style:none;margin-top:10px">
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Sobreposições: dois agentes no mesmo plano sem coordenação</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Lacunas: plano necessário sem agente cobrindo</li>
+        <li style="padding:4px 0 4px 16px;position:relative;font-size:13px;color:#b0b0b0"><span style="position:absolute;left:0;color:var(--muted)">—</span>Conflitos: agente do plano superior ignorando constraints do inferior</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">4. A Dupla Faixa no Ecossistema</div>
+      <p><strong style="color:var(--accent2)">Faixa funcionalidade:</strong> pipeline de execução dos agentes — loops de controle, orquestração, ferramentas, APIs</p>
+      <p style="margin-top:10px"><strong style="color:var(--accent3)">Faixa informação:</strong> corpus de conhecimento que os agentes consultam, cruzam e produzem</p>
+      <p style="margin-top:10px;font-size:13px;color:#999">Os dois coexistem: o loop de execução (funcionalidade) opera sobre e produz conhecimento (informação). A arquitetura precisa servir a ambos.</p>
+    </div>
+
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <strong>Fontes</strong><br>
+  Jesse James Garrett · <em>The Elements of User Experience</em> · New Riders, 2002<br>
+  Jesse James Garrett · <em>The Elements of User Experience</em> (2nd ed.) · New Riders/Pearson, 2010<br>
+  Diagrama original: jjg.net/elements · Capítulo 2 PDF: jjg.net/elements/pdf/elements_ch02.pdf<br>
+  Kristina Halvorson · <em>Content Strategy for the Web</em> · 2009<br>
+  ACM Digital Library: dl.acm.org/doi/10.5555/1965524 · Wikipedia: Jesse James Garrett<br>
+  <br>
+  <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase">Produzido para o ecossistema SeyAI · 2026-05-16</span>
+</div>
+
+</body>
+</html>
